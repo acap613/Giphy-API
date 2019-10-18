@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GIPHY AJAX BUTTONZ</title>
+    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+</head>
+<body>
+    <button data-search="schnauzer">Schnauzer</button>
+    <button data-search="poodle">Poodle</button>
+    <button data-search="rottweiler">Rotty</button>
+    <button data-search="funny+dogs">Silly</button>
+    <button data-search="chihuahua">Chi-Chis</button>
+    <button data-search="pug">Pug</button>
+    <div id="gifArea"></div>
+    <script type="text/javascript">
+        $('button').on('click', function() {
+            var x = $(this).data("search");
+            console.log(x);
+
+           z
+            console.log(queryURL);
+            $.ajax({url:queryURL, method:'GET'})
+            .done(function(response) {
+                console.log(response);
+                for(var i=0;i<response.data.length;i++){
+                    $('#gifArea').prepend("<p>Rating:"+response.data[i].rating+"</p>");
+                $('#gifArea').prepend("<img src='"+response.data[i].images.downsized.url+"'>");
+                }
+                
+               
+              
+                });
+            });
+            
+      
+    
+    
+    </script>
+</body>
+</html>
