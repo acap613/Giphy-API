@@ -28,13 +28,14 @@
 //===============================================================================================
 //===============================================================================================
     function displayDog() {
-        var dog = $(this).attr("data-name");
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + dog + "&api_key=wFyiXn1rSsex7GPqMpy5dHZchhc6ALP0&limit=12";
+        var dog = $(this).attr("search");
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q="+dog+"&api_key=wFyiXn1rSsex7GPqMpy5dHZchhc6ALP0&limit=8";
         $.ajax({
             url:queryURL,
             method: 'GET',
         }).then(function(response){
             console.log(response);
+            $("#gifArea").prepend("<img src '" +response.url +"'>")
         });
     }
 //===============================================================================================
@@ -51,7 +52,7 @@
             //provide text inside each button new and old
             d.text(dogs[i]);
             //give the button a data-attribute
-            d.attr("data-name", dogs[i]);
+            d.attr("search", dogs[i]);
             //add the buttons to the buttons-view div
             $("#buttons-view").append(d);
             
@@ -62,6 +63,7 @@
 //====================================================================================================
     //   the ever so important onClick event thing we struggle with constantly
         // This function handles events where the add dog button is clicked
+      $(document).on("click", ".dog", displayDog);
       $("#add-dog").on("click", function(event) {
         event.preventDefault();
         // This line of code will grab the input from the textbox
