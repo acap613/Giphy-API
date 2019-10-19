@@ -29,15 +29,25 @@
 //===============================================================================================
     function displayDog() {
         var dog = $(this).attr("search");
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q="+dog+"&api_key=wFyiXn1rSsex7GPqMpy5dHZchhc6ALP0&limit=8";
+        var queryURL = "http://api.giphy.com/v1/gifs/random?tag="+dog+"&api_key=wFyiXn1rSsex7GPqMpy5dHZchhc6ALP0";
         $.ajax({
             url:queryURL,
             method: 'GET',
         }).then(function(response){
             console.log(response);
-            $("#gifArea").prepend("<img src '" +response.url +"'>")
+            //this is the key line 
+            var gifArray = [response.data];
+
+
+
+            for (var i=0; i<gifArray.length;i++) {
+                var gif = $("<img>");
+                gif.attr("src", gifArray[i].images.original.url);
+                $("#gifArea").prepend(gif);
+            };
+            
         });
-    }
+    };
 //===============================================================================================
 //===============================================================================================
     function renderButtons() {
