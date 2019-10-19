@@ -5,7 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>GIPHY AJAX BUTTONZ</title>
-    
+    <style type="text/css">
+        button,
+        div,
+        form,
+        input {
+          margin: 10px;
+        }
+        .delete {
+          margin-left: -15px;
+          color: white;
+          background:rgb(155, 243, 55);
+          border-radius: 10px;
+        }
+      </style>
 </head>
 <body>
     <!-- div to hold buttons -->
@@ -15,6 +28,8 @@
             <label for="dog-input">What kind of dog(s) do you like?</label>
             <input type="text" id="dog-input"><br>      
             <input id="add-dog" type="submit" value="pick">
+            <input id="clear" type="button" value="clear">
+
           </form>
     <!-- div to show GIFs -->
     <div id="gifArea"></div>
@@ -64,7 +79,12 @@
             //give the button a data-attribute
             d.attr("search", dogs[i]);
             //add the buttons to the buttons-view div
-            $("#buttons-view").append(d);
+            var b = $("<button>");
+          b.addClass("delete");
+          b.text("X")
+          b.attr("id", i);
+          $("#buttons-view").append(d, b);
+          closes.push(b);;
             
         }
 
@@ -74,6 +94,13 @@
     //   the ever so important onClick event thing we struggle with constantly
         // This function handles events where the add dog button is clicked
       $(document).on("click", ".dog", displayDog);
+      $(document).on("click", ".delete", function(event) {
+        event.preventDefault();
+        console.log("works");
+        removeID = $(this).attr("id");
+        dogs = dogs.filter(function(obj,id) { return id != removeID});
+        renderButtons();
+      });
       $("#add-dog").on("click", function(event) {
         event.preventDefault();
         // This line of code will grab the input from the textbox
@@ -91,9 +118,15 @@
       });
 //====================================================================================================
 //====================================================================================================
+
+    $(document).on("click", "#clear", function(){
+        $('#gifArea').empty();
+    })
+
      renderButtons();
           
-            
+          //add delete buttons and
+          //add a clear button  
       
     
     
